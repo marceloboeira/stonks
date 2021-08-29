@@ -2,15 +2,15 @@
 #include <ArduinoHttpClient.h>
 #include <LiquidCrystal.h>
 
-
+// Pin Setup for LCD Keypad Module from ekitszone.com
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(192, 168, 86, 177);
-IPAddress myDns(192, 168, 86, 1); 
+IPAddress myDns(192, 168, 86, 1);
 
 EthernetClient eth;
-char server[] = "www.randomnumberapi.com";  // also change the Host line in httpRequest()
+char server[] = "www.randomnumberapi.com";
 HttpClient http = HttpClient(eth, server, 80);
 
 unsigned long lastConnectionTime = 0;
@@ -48,8 +48,10 @@ void setup() {
 }
 
 void loop() {
+
   if (millis() - lastConnectionTime > postingInterval) {
     Serial.println("making GET request");
+
     http.get("/api/v1.0/random");
 
     int statusCode = http.responseStatusCode();

@@ -12,7 +12,7 @@ Debugger debugger(DEBUGGER_ENABLED, DEBUGGER_PORT);
 // ekitszone.com pin setup
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
-// Network Stack
+// Ethernet Setup
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(192, 168, 86, 177);
 IPAddress myDns(192, 168, 86, 1);
@@ -22,17 +22,22 @@ EthernetClient eth;
 #define API_SERVER "www.randomnumberapi.com"
 #define API_PORT 80
 #define API_RANDOM_PATH "/api/v1.0/random"
-
 HttpClient http = HttpClient(eth, API_SERVER, API_PORT);
 
 unsigned long lastConnectionTime = 0;
 const unsigned long postingInterval = 10 * 1000;
 
 void setup() {
+  lcd.begin(16, 2);
   debugger.setup();
-
+  lcd.setCursor(0,0);
   lcd.write("stonks!");
+  lcd.setCursor(0,1);
+  lcd.write("Network...");
+  setupEthernet();
+}
 
+void setupEthernet() {
   debugger.log("Initialize Ethernet");
   if (Ethernet.begin(mac) == 0) {
     debugger.log("  Failed to configure Ethernet using DHCP");

@@ -4,7 +4,9 @@
 #include "Debugger.h"
 
 // Debugger Setup
-Debugger debugger(true, 9600);
+#define DEBUGGER_ENABLED true
+#define DEBUGGER_PORT 9600
+Debugger debugger(DEBUGGER_ENABLED, DEBUGGER_PORT);
 
 // LCD Setup
 // ekitszone.com pin setup

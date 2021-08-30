@@ -21,18 +21,19 @@ EthernetClient eth;
 // Server Setup
 #define API_SERVER "www.randomnumberapi.com"
 #define API_PORT 80
-#define API_RANDOM_PATH "/api/v1.0/random"
+#define API_RANDOM_PATH "/api/v1.0/random?min=0&max=99"
 HttpClient http = HttpClient(eth, API_SERVER, API_PORT);
 
 unsigned long lastConnectionTime = 0;
-const unsigned long postingInterval = 10 * 1000;
+const unsigned long postingInterval = 5 * 1000;
 
 void setup() {
   lcd.begin(16, 2);
   debugger.setup();
-  lcd.setCursor(0,0);
+
+  lcd.setCursor(0, 0);
   lcd.write("stonks!");
-  lcd.setCursor(0,1);
+  lcd.setCursor(0, 1);
   lcd.write("Network...");
   setupEthernet();
 }
@@ -60,6 +61,14 @@ void setupEthernet() {
   delay(1000);
 }
 
+
+void lcdClearLine(int line) {
+  lcd.setCursor(0, line);
+  for (int n = 0; n < 16; n++) {
+    lcd.print(" ");
+  }
+}
+
 void loop() {
   if (millis() - lastConnectionTime > postingInterval) {
 
@@ -71,8 +80,13 @@ void loop() {
     debugger.log("  Status Code: " + String(statusCode));
     debugger.log("  Body: " + body);
 
-    lcd.clear();
-    lcd.print(body);
+    lcdClearLine(1);
+    lcd.setCursor(0, 1);
+    if (body.length() >= 3) {
+      lcd.print("AAPL: +1." + body.substring(1, body.length() - 1) + "%");
+    } else {
+      lcd.print("Error...");
+    }
 
     lastConnectionTime = millis();
   }

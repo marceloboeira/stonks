@@ -13,3 +13,5 @@
 * [ ] How to store list of stocks?
 * [ ] How to swtich displaying stocks?
 * [ ] How to update list of stocks?
+* [ ] Setup Makefile
+* [ ] Setup editorconfig

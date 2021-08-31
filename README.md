@@ -1,5 +1,8 @@
-# stonks
-> A stock display for Arduino
+<p align="center">
+  <img src="https://raw.githubusercontent.com/marceloboeira/stonks/master/Stonks.jpg" width="250">
+  <h3 align="center">stonks</h3>
+  <p align="center">A stock display for Arduino</p>
+</p>
 
 ## Commands
 

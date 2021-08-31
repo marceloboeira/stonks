@@ -110,8 +110,8 @@ void statePageLoad() {
   } else {
     lcd.print("Error...");
   }
-  currentPage = nextPage();
 
+  currentPage = nextPage();
   state = IDLE;
 }
 

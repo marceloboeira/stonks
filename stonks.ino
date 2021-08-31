@@ -4,7 +4,7 @@
 #include "Debugger.h"
 
 // Debugger Setup
-#define DEBUGGER_ENABLED true
+#define DEBUGGER_ENABLED false
 #define DEBUGGER_PORT 9600
 Debugger debugger(DEBUGGER_ENABLED, DEBUGGER_PORT);
 

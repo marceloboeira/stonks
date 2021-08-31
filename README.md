@@ -11,6 +11,7 @@ compile     Compile to the TARGET_BOARD
 setup       Install Arduino CLI
 upload      Upload code to the TARGET_BOARD and TARGET_PORT
 ```
+** Important: `upload` command pushes the last compiled code (with `compile` command), not the current code version
 
 ### TODO
 
@@ -19,11 +20,15 @@ upload      Upload code to the TARGET_BOARD and TARGET_PORT
 * [x] Make random HTTP request
 * [x] Plot HTTP response in the LCD
 * [x] Control States with a State Machine
-* [ ] Implement JSON Response Parser
-* [ ] Find a good/free stock API
-* [ ] Parse a single stock to display
-* [ ] How to store list of stocks?
-* [ ] How to swtich displaying stocks?
-* [ ] How to update list of stocks?
+* [x] ~How to store list of stocks?~
+* [x] ~How to swtich displaying stocks?~
+* [x] ~How to update list of stocks?~
 * [x] Setup Makefile / Arduino CLI
 * [x] Setup editorconfig
+* [ ] How to store secrets
+* [ ] Find a good/free stock API
+* [ ] Implement Request/JSON Response Parser
+* [ ] Parse a single stock to display
+* [ ] Load Tickers List Dynamically?
+* [ ] Use Keyboard to paginate?
+* [ ] Abstractions

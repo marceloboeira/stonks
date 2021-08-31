@@ -1,6 +1,17 @@
 # stonks
 > A stock display for Arduino
 
+## Commands
+
+Available commands with `make COMMAND`:
+
+```
+help        List the available commands
+compile     Compile to the TARGET_BOARD
+setup       Install Arduino CLI
+upload      Upload code to the TARGET_BOARD and TARGET_PORT
+```
+
 ### TODO
 
 * [x] Configure LDC Shield
@@ -14,5 +25,5 @@
 * [ ] How to store list of stocks?
 * [ ] How to swtich displaying stocks?
 * [ ] How to update list of stocks?
-* [ ] Setup Makefile
+* [x] Setup Makefile / Arduino CLI
 * [ ] Setup editorconfig

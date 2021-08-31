@@ -24,19 +24,16 @@ EthernetClient eth;
 #define API_RANDOM_PATH "/api/v1.0/random?min=0&max=99"
 HttpClient http = HttpClient(eth, API_SERVER, API_PORT);
 
+
+// State Machine Setup
+
+enum States {SETUP, POLL_DATA, IDLE};
+uint8_t state = SETUP;
+
 unsigned long lastConnectionTime = 0;
-const unsigned long postingInterval = 5 * 1000;
+const unsigned long postingInterval = 4 * 1000;
 
-void setup() {
-  lcd.begin(16, 2);
-  debugger.setup();
-
-  lcd.setCursor(0, 0);
-  lcd.write("stonks!");
-  lcd.setCursor(0, 1);
-  lcd.write("Network...");
-  setupEthernet();
-}
+void setup() {};
 
 void setupEthernet() {
   debugger.log("Initialize Ethernet");
@@ -69,25 +66,58 @@ void lcdClearLine(int line) {
   }
 }
 
-void loop() {
+void stateSetup() {
+  debugger.setup();
+  debugger.log("State: Setup");
+
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.write("stonks!");
+  lcd.setCursor(0, 1);
+  lcd.write("Network...");
+  setupEthernet();
+  state = IDLE;
+}
+
+void statePollData() {
+  debugger.log("State: PollData");
+  debugger.log("GET " + String(API_RANDOM_PATH));
+  http.get(API_RANDOM_PATH);
+
+  int statusCode = http.responseStatusCode();
+  String body = http.responseBody();
+  debugger.log("  Status Code: " + String(statusCode));
+  debugger.log("  Body: " + body);
+
+  lcdClearLine(1);
+  lcd.setCursor(0, 1);
+  if (body.length() >= 3) {
+    lcd.print("AAPL: +1." + body.substring(1, body.length() - 1) + "%");
+  } else {
+    lcd.print("Error...");
+  }
+
+  state = IDLE;
+}
+
+void stateIdle() {
+  debugger.log("State: Idle");
   if (millis() - lastConnectionTime > postingInterval) {
-
-    debugger.log("GET " + String(API_RANDOM_PATH));
-    http.get(API_RANDOM_PATH);
-
-    int statusCode = http.responseStatusCode();
-    String body = http.responseBody();
-    debugger.log("  Status Code: " + String(statusCode));
-    debugger.log("  Body: " + body);
-
-    lcdClearLine(1);
-    lcd.setCursor(0, 1);
-    if (body.length() >= 3) {
-      lcd.print("AAPL: +1." + body.substring(1, body.length() - 1) + "%");
-    } else {
-      lcd.print("Error...");
-    }
-
+    state = POLL_DATA;
     lastConnectionTime = millis();
+  }
+}
+
+void loop() {
+  switch(state) {
+    case SETUP:
+      stateSetup();
+      break;
+    case IDLE:
+      stateIdle();
+      break;
+    case POLL_DATA:
+      statePollData();
+      break;
   }
 }

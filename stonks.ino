@@ -27,7 +27,7 @@ uint8_t state = SETUP;
 
 // Pagination Setup
 unsigned long refreshedAt = 0;
-const unsigned long refreshInterval = 3 * 1000; // in Milliseconds
+const unsigned long refreshInterval = REFRESH_INTERNVAL * 1000; // in Milliseconds
 const uint8_t totalPages = TickersCount;
 uint8_t currentPage = 0;
 

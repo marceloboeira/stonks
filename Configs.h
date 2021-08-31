@@ -10,3 +10,6 @@
 // LCD
 #define LCD_ROWS 2
 #define LCD_COLUMNS 16
+
+// Pagination
+#define REFRESH_INTERNVAL 3 // Time between stock refresh (Seconds)

@@ -26,4 +26,4 @@ upload      Upload code to the TARGET_BOARD and TARGET_PORT
 * [ ] How to swtich displaying stocks?
 * [ ] How to update list of stocks?
 * [x] Setup Makefile / Arduino CLI
-* [ ] Setup editorconfig
+* [x] Setup editorconfig

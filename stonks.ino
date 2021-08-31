@@ -76,6 +76,10 @@ void stateSetup() {
   lcd.setCursor(0, 1);
   lcd.write("Network...");
   setupEthernet();
+
+  lcdClearLine(1);
+  lcd.setCursor(0, 1);
+  lcd.write("Loading...");
   state = IDLE;
 }
 
